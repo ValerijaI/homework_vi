@@ -43,5 +43,6 @@ class PremiumCalculatorImpl implements PremiumCalculator{
                                              .filter(subObject -> subObject.isSpecificRisk(riskType))
                                              .map(subObject -> subObject.getCost())
                                              .reduce(BigDecimal.ZERO, BigDecimal::add);
+
     }
 }

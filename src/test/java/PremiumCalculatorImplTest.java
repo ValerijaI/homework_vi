@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 
 public class PremiumCalculatorImplTest {
 
+
     PremiumCalculator calculator = new PremiumCalculatorImpl();
 
     @Test

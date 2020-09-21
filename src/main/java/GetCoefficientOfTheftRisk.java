@@ -1,6 +1,7 @@
 
 import java.math.BigDecimal;
 
+
 class GetCoefficientOfTheftRisk implements GetCoefficientOfRiskType{
 
 

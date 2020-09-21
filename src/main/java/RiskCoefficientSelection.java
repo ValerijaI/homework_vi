@@ -2,6 +2,7 @@ import domain.RiskType;
 
 import java.math.BigDecimal;
 
+
 class RiskCoefficientSelection {
 
     BigDecimal getCoefficientForSpecificRisk(BigDecimal sum, RiskType riskType) {

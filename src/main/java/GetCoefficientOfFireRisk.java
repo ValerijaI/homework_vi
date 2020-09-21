@@ -1,6 +1,7 @@
 
 import java.math.BigDecimal;
 
+
 class GetCoefficientOfFireRisk implements GetCoefficientOfRiskType{
 
     @Override
