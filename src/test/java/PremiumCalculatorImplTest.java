@@ -52,13 +52,25 @@ public class PremiumCalculatorImplTest {
     }
 
     @Test
-    public void testTwoObjectsOneSubObject(){
+    public void testTwoObjectsOneSubObjectWithRiskTypeFire(){
         SubObject subObject1 = new SubObject("TV", new BigDecimal("200"), RiskType.FIRE);
         ObjectOfPolicy objectOfPolicy1 = new ObjectOfPolicy("A House", subObject1);
         ObjectOfPolicy objectOfPolicy2 = new ObjectOfPolicy("A Flat");
         Policy policy = new Policy("LV20-02-100000-5", "APPROVED", objectOfPolicy1, objectOfPolicy2);
 
         BigDecimal expectedPolicyPremium = new BigDecimal("4.80");
+        BigDecimal calculatedPolicyPremium = calculator.calculate(policy);
+        assertEquals(expectedPolicyPremium, calculatedPolicyPremium);
+    }
+
+    @Test
+    public void testTwoObjectsOneSubObjectWithRiskTypeTheft(){
+        SubObject subObject1 = new SubObject("TV", new BigDecimal("200"), RiskType.THEFT);
+        ObjectOfPolicy objectOfPolicy1 = new ObjectOfPolicy("A House");
+        ObjectOfPolicy objectOfPolicy2 = new ObjectOfPolicy("A Flat", subObject1);
+        Policy policy = new Policy("LV20-02-100000-5", "APPROVED", objectOfPolicy1, objectOfPolicy2);
+
+        BigDecimal expectedPolicyPremium = new BigDecimal("10.00");
         BigDecimal calculatedPolicyPremium = calculator.calculate(policy);
         assertEquals(expectedPolicyPremium, calculatedPolicyPremium);
     }
