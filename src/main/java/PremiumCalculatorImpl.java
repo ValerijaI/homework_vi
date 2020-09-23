@@ -4,6 +4,7 @@ import domain.RiskType;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Collection;
 import java.util.List;
 
 class PremiumCalculatorImpl implements PremiumCalculator{
@@ -32,17 +33,13 @@ class PremiumCalculatorImpl implements PremiumCalculator{
         return coefficientSelection.getCoefficientForSpecificRisk(sumOfInsuredSubObjectsForSpecificRisk, riskType);
     }
 
-    private BigDecimal getSumOfInsuredSubObjectsForSpecificRisk (List<ObjectOfPolicy> listOfObjects, RiskType riskType){
+    private BigDecimal getSumOfInsuredSubObjectsForSpecificRisk (List<ObjectOfPolicy> listOfObjects, RiskType riskType) {
         return listOfObjects.stream()
-                            .map(object -> getSumOfCostSubObjects(object, riskType))
-                            .reduce(BigDecimal.ZERO, BigDecimal::add);
+                .map(object -> object.getSubObjects())
+                .flatMap(Collection::stream)
+                .filter(subObject -> subObject.isSpecificRisk(riskType))
+                .map(subObject -> subObject.getCost())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    private BigDecimal getSumOfCostSubObjects(ObjectOfPolicy objectOfPolicy, RiskType riskType){
-        return objectOfPolicy.getSubObjects().stream()
-                                             .filter(subObject -> subObject.isSpecificRisk(riskType))
-                                             .map(subObject -> subObject.getCost())
-                                             .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-    }
 }
