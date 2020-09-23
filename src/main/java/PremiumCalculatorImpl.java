@@ -1,6 +1,7 @@
 import domain.ObjectOfPolicy;
 import domain.Policy;
 import domain.RiskType;
+import domain.SubObject;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -35,10 +36,10 @@ class PremiumCalculatorImpl implements PremiumCalculator{
 
     private BigDecimal getSumOfInsuredSubObjectsForSpecificRisk (List<ObjectOfPolicy> listOfObjects, RiskType riskType) {
         return listOfObjects.stream()
-                .map(object -> object.getSubObjects())
+                .map(ObjectOfPolicy::getSubObjects)
                 .flatMap(Collection::stream)
                 .filter(subObject -> subObject.isSpecificRisk(riskType))
-                .map(subObject -> subObject.getCost())
+                .map(SubObject::getCost)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
