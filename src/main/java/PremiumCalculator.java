@@ -3,7 +3,7 @@ import domain.Policy;
 import java.math.BigDecimal;
 
 
-interface PremiumCalculator {
+public interface PremiumCalculator {
 
     BigDecimal calculate (Policy policy);
 

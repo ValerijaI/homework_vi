@@ -34,7 +34,7 @@ class PremiumCalculatorImpl implements PremiumCalculator{
         return coefficientSelection.getCoefficientForSpecificRisk(sumOfInsuredSubObjectsForSpecificRisk, riskType);
     }
 
-    private BigDecimal getSumOfInsuredSubObjectsForSpecificRisk (List<ObjectOfPolicy> listOfObjects, RiskType riskType) {
+    private BigDecimal getSumOfInsuredSubObjectsForSpecificRisk (List<ObjectOfPolicy> listOfObjects, RiskType riskType){
         return listOfObjects.stream()
                 .map(ObjectOfPolicy::getSubObjects)
                 .flatMap(Collection::stream)
